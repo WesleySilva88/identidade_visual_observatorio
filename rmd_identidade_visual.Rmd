@@ -18,6 +18,9 @@ library(dplyr)
 library(rmarkdown)
 library(flextable)
 library(ggplot2)
+library(DT)
+library(plotly)
+library(crosstalk)
 # source("auxiliares/metodos.R")
 ```
 
@@ -170,7 +173,14 @@ ggplot_new(pressure,aes(x = temperature,y = pressure)) +
 ggplot(mtcars,
        aes(x = hp,y = wt)) + 
   geom_point() + 
-  geom_smooth() 
+  geom_smooth() -> plot_ex1
+plot_ex1
+```
+
+## Pontos e linha de 'smooth' usando plotly
+
+```{r linha_smooth_plotly,echo = T}
+ggplotly(plot_ex1)
 ```
 
 
@@ -208,4 +218,32 @@ mtcars %>% setDT %>% .[,.N,.(carb)] %>%
   ggplot_new(aes(x = carb,y = N,fill = carb))+ 
   geom_col()
   
+```
+
+## Exemplo com DataTable
+
+```{r datatable}
+mtcars %>%
+  head() %>%
+  DT::datatable() -> dt1
+dt1
+```
+
+## Tabela-gráfico
+
+```{r crosstalk1, echo = T}
+bscols(ggplotly(plot_ex1),
+       dt1,
+       widths = c(6,6),
+       device = "sm")
+```
+
+
+## Tabela-tabela
+
+```{r crosstalk2, echo = T}
+bscols(dt1,
+       dt1,
+       widths = c(6,6),
+       device = "sm")
 ```
