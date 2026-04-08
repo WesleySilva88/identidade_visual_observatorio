@@ -1,5 +1,5 @@
 ---
-title: 'Observatório de Pessoal: identidade visual em Rmarkdown'
+title: '**Observatório de Pessoal:** identidade visual em Rmarkdown'
 output:
   html_document:
     toc: true
